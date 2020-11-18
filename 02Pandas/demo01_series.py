@@ -40,7 +40,14 @@ dates = pd.Series(['2011', '2011-02', '2011-03-01', '2011/04/01',
                    '2011/05/01 01:01:01', '01 Jun 2011'])
 dates = pd.to_datetime(dates)
 print(dates)
+print(dates.dt.week) # 一年中的第几周
 
 # 查看距离20110101多少纳秒ns
 delta = dates - pd.to_datetime('20110101')
 print(delta)
+
+# 生成一组时间序列
+dates = pd.date_range('20201001',periods=7)
+print(dates)
+dates = pd.date_range('20201001',periods=7,freq='M') # 往后增加5个月
+print(dates)
