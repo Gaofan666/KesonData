@@ -36,6 +36,47 @@ data = {'Name': pd.Series(['Tom', 'Jack', 'Steve', 'Ricky']), 'Age': pd.Series([
 df = pd.DataFrame(data)  # 更改行索引后全是NaN ???
 print(df)
 
+d = {'one': pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+     'two': pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd']),
+     'three': pd.Series([10, 20, 30], index=['a', 'b', 'c'])}
+
+print('-' * 15, '列的访问', '-' * 15)
+df = pd.DataFrame(d)
+print(df)
+print(df['two'])  # Series
+print(df[['two']])  # DataFrame 加了一个中括号
+print(df[['one', 'two']])  # 要加两个中括号将one two定为一个整体
+print(df[df.columns[:-1]])  # 用切片取前两列
+
+print('-' * 15, '列的添加', '-' * 15)
+df['four'] = pd.Series([90, 50, 60, 40], index=['a', 'b', 'd', 'c'])
+print(df)
+
+print('-' * 15, '列的删除', '-' * 15)
+# 返回删除结果但原df不变 1水平 0垂直
+print(df.drop(['three', 'four'], axis=1))  # drop可以删除好几行
+
+print('-' * 15, '行的访问', '-' * 15)
+print(df)
+print(df.loc['b'])  # 拿到b的一行 返回Series
+print(df.loc[['b', 'c']])  # 拿到b,c两行
+print(df.loc['b':'c'])  # 切片
+# 用iloc  -->  index loc
+print(df.iloc[1])
+print(df.iloc[[1, 2]])  # 取1，2行
+print(df.iloc[:-1])  # 取前三行
+
+print('-' * 15, '行的添加', '-' * 15)
+print(df)
+# 添加一行,别忘了更改列名，不然整合的时候索引无法对应
+newdf = pd.DataFrame([[10, 20, 80, 30]], columns=df.columns, index=['e'])
+df = df.append(newdf)
+print(df)
+
+print('-' * 15, '行的删除', '-' * 15)
+# drop方法  axis=0删行  =1删列
+print(df.drop(['c', 'd'], axis=0))  # 删除cd这两行
+
 # 读取电信用户数据
 # 把pack_type,extra_flow,loss存入DataFrame,获取前5行
 # 加载数据
@@ -63,7 +104,22 @@ with open('CustomerSurvival.csv', 'r') as f:
         'formats': ['i4', 'i4', 'f8', 'f8', 'i4', 'i4', 'i4', 'i4', 'i4', 'i4']
     })
 
-df = pd.DataFrame({'pack_type': data['pack_type'],
-                   'extra_time': data['extra_time'],
-                   'loss': data['loss']})
-print(df.head(10))
+# 瘦身： 只需要 pack_type  extra_time  loss
+sub_df = pd.DataFrame({'pack_type': data['pack_type'],
+                       'extra_time': data['extra_time'],
+                       'loss': data['loss']})
+print(sub_df)
+# 追加一列 extra_flow
+sub_df['extra_flow'] = data['extra_flow']
+print(sub_df.head(10))
+# 选择所有未流失数据行
+unloss_df = sub_df.loc[sub_df['loss'] == 0]  # 这里加不加loc都对
+print(unloss_df.head(3))
+
+print('-' * 15, '修改DataFrame的某个数据', '-' * 15)
+print(df)
+# 先找列再找行 four列 a行
+df['three']['d'] = 66
+print(df)
+
+print('-' * 15, '复合索引', '-' * 15)
