@@ -123,3 +123,19 @@ df['three']['d'] = 66
 print(df)
 
 print('-' * 15, '复合索引', '-' * 15)
+# 生成一组随机数6行3列  要求服从期望=85，标准差=3的正态分布
+data = np.floor(np.random.normal(85, 3, (6, 3)))  # floor向下取整
+df = pd.DataFrame(data)
+print(df)
+# 设置行级标签索引为复合索引  A/B/C班的男生M女生F
+index = [('A', 'M'), ('A', 'F'), ('B', 'M'), ('B', 'F'), ('C', 'M'), ('C', 'F')]
+df.index = pd.MultiIndex.from_tuples(index)
+columns = [('Score', 'math'), ('Score', 'reading'), ('Score', 'writing')]
+df.columns = pd.MultiIndex.from_tuples(columns)
+print(df)
+# 获取C班的男生的信息
+print(df.loc['C', 'M'])  # 返回Series对象
+# 获取A,C班的学生的信息
+print(df.loc[['A','C']])
+# 访问复合索引列
+print(df['Score','writing'])
