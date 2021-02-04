@@ -451,7 +451,7 @@ jupyter notebook
 
 ### 数据加载
 
-![](C:/Users/xuming/Desktop/20.04%E7%A0%94%E5%8F%91/%E6%96%B0%E7%89%88%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E8%AF%BE%E4%BB%B6/images/IOtools.png)
+![](..//images/IOtools.png)
 
 #### 处理普通文本
 
