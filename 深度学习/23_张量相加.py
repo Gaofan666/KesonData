@@ -1,7 +1,6 @@
 # 常量加法运算示例
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 import os
-tf.disable_v2_behavior()
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' # 调整警告级别
 

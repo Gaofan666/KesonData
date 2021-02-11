@@ -8,4 +8,4 @@ from tensorflow import keras
 import numpy as np
 import matplotlib.pyplot as plt
 
-print(tf.__version__) # 2.2.0
+print(tf.__version__) # 1.14
