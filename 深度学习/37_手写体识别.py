@@ -10,15 +10,15 @@ x = tf.placeholder(tf.float32, [None, 784])  # 图像数据
 y = tf.placeholder(tf.float32, [None, 10])  # 标签，图像真是类别
 
 # 定义权重、偏置
-w = tf.Variable(tf.random_normal([784, 10]))  # 权重  784行10列
+w = tf.Variable(tf.random_normal([784, 10]))  # 权重  784行10列  784像素 10个类别
 b = tf.Variable(tf.zeros([10]))  # 10个偏置
 
 # 构建模型，计算预测结果
 pred_y = tf.nn.softmax(tf.matmul(x, w) + b)
-# 损失函数
+# 损失函数  交叉熵损失函数 （真实值*预测值的对数）求和 再取负数
 cross_entropy = -tf.reduce_sum(y * tf.log(pred_y), reduction_indices=1)
 cost = tf.reduce_mean(cross_entropy)  # 求均值
-# 定义梯度下降优化器
+# 定义梯度下降优化器  0.01是学习率
 optimizer = tf.train.GradientDescentOptimizer(0.01).minimize(cost)
 
 batch_size = 100
