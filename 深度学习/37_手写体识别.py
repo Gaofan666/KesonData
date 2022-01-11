@@ -46,7 +46,7 @@ with tf.Session() as sess:
     print('训练结束')
 
     # 对模型进行评估  比较预测结果和真实结果 返回布尔类型的数组
-    correct_pred = tf.equal(tf.argmax(pred_y, 1),  # 求预测结果中最大值的做因
+    correct_pred = tf.equal(tf.argmax(pred_y, 1),  # 求预测结果中最大值的索引
                             tf.argmax(y, 1))  # 求真实结果中最大值索引
     # 将bool类型数组转换为浮点数，并计算准确率
     # 因为计算均值，准确率公式相同，所以调用计算机均值的函数计算准确率
